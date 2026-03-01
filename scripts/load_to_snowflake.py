@@ -1,18 +1,21 @@
 import os
+import glob
+import logging
 import pandas as pd
+import kagglehub
 import snowflake.connector
 from snowflake.connector.pandas_tools import write_pandas
 from dotenv import load_dotenv
-import logging
 
 # 1. Professional Logging Setup
-logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logging.basicConfig(
+    level=logging.INFO, 
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
-# 2. Load Environment Variables
 load_dotenv()
 
 def get_snowflake_conn():
-    """Establishing a secure connection to Snowflake."""
     return snowflake.connector.connect(
         user=os.getenv('SNOW_USER'),
         password=os.getenv('SNOW_PASS'),
@@ -22,39 +25,57 @@ def get_snowflake_conn():
         schema=os.getenv('SNOW_SCHEMA')
     )
 
-def load_large_csv_to_snowflake():
-    """Loading CSV in chunks to prevent memory overflow."""
-    
-    data_path = '/home/codespace/.cache/kagglehub/datasets/jeanmidev/smart-meters-in-london/versions/3'
-    file_path = f"{data_path}/LCL-FullReader.csv"
-    
-    conn = get_snowflake_conn()
+def load_partitioned_data():
+    """Locates the partitioned block files and loads them into Snowflake."""
     
     try:
-        logging.info("🚀 Starting high-volume ingestion in chunks...")
+        logging.info("🔍 Requesting dataset location from Kaggle...")
+        data_path = kagglehub.dataset_download("jeanmidev/smart-meters-in-london")
         
-        # We read in chunks of 100,000 rows
-        chunk_size = 100000
-        reader = pd.read_csv(file_path, chunksize=chunk_size)
+        # Path to the daily blocks based on your ls -R output
+        blocks_dir = os.path.join(data_path, "daily_dataset", "daily_dataset")
         
-        for i, chunk in enumerate(reader):
-            logging.info(f"📦 Processing chunk {i+1}...")
+        # Get all block files (block_0.csv, block_1.csv, etc.)
+        block_files = glob.glob(os.path.join(blocks_dir, "block_*.csv"))
+        block_files.sort() # Ensure we load them in order
+        
+        if not block_files:
+            logging.error(f"❌ No block files found in {blocks_dir}")
+            return
+        
+        logging.info(f"✅ Found {len(block_files)} data partitions (blocks) to load.")
+
+        conn = get_snowflake_conn()
+        logging.info("🚀 Snowflake connection established.")
+
+        for i, file_path in enumerate(block_files):
+            file_name = os.path.basename(file_path)
+            logging.info(f"📦 Loading {file_name} ({i+1}/{len(block_files)})...")
             
-            # Write each chunk to Snowflake
+            # Read the individual block
+            df = pd.read_csv(file_path)
+            
+            # Standardize column names (Snowflake prefers uppercase)
+            df.columns = [col.upper() for col in df.columns]
+
+            # Write to Snowflake
+            # auto_create_table=True only on the very first file
             success, nchunks, nrows, _ = write_pandas(
                 conn=conn,
-                df=chunk,
+                df=df,
                 table_name='LONDON_ENERGY_RAW',
-                auto_create_table=(i == 0), # Only create table on the first chunk
+                auto_create_table=(i == 0),
                 quote_identifiers=False
             )
-            logging.info(f"✅ Successfully loaded {nrows} rows.")
+            logging.info(f"✅ Successfully loaded {nrows} rows from {file_name}.")
             
     except Exception as e:
         logging.error(f"❌ Ingestion failed: {e}")
+        
     finally:
-        conn.close()
-        logging.info("🔒 Snowflake connection closed.")
+        if 'conn' in locals():
+            conn.close()
+            logging.info("🔒 Snowflake connection closed.")
 
 if __name__ == "__main__":
-    load_large_csv_to_snowflake()
+    load_partitioned_data()
