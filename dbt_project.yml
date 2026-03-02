@@ -1,0 +1,38 @@
+name: 'uk_energy_analytics'
+version: '1.0.0'
+config-version: 2
+
+# This matches the connection we set up in the wizard
+profile: 'default'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# ---------------------------------------------------------
+# Configuring Models: This is where we define our architecture
+# ---------------------------------------------------------
+models:
+  uk_energy_analytics:
+    # 1. Staging Layer: Light cleaning, always materialized as views for speed
+    staging:
+      +materialized: view
+      +schema: staging
+
+    # 2. Intermediate Layer: Complex logic, materialized as ephemeral or views
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+
+    # 3. Marts Layer: Final "Gold" tables for Power BI, always tables for performance
+    marts:
+      +materialized: table
+      +schema: marts

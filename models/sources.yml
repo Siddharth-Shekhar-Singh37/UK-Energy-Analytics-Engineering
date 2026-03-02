@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: energy_raw_data
+    database: UK_ENERGY_DB
+    schema: RAW
+    tables:
+      - name: LONDON_ENERGY_RAW
+      - name: LONDON_HOUSEHOLDS_RAW
