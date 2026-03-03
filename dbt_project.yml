@@ -25,14 +25,14 @@ models:
     # 1. Staging Layer: Light cleaning, always materialized as views for speed
     staging:
       +materialized: view
-      +schema: staging
+      
 
     # 2. Intermediate Layer: Complex logic, materialized as ephemeral or views
     intermediate:
       +materialized: view
-      +schema: intermediate
+     
 
     # 3. Marts Layer: Final "Gold" tables for Power BI, always tables for performance
     marts:
       +materialized: table
-      +schema: marts
+     
