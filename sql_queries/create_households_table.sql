@@ -1,0 +1,8 @@
+-- Creating the raw households table in our landing zone (RAW schema)
+CREATE OR REPLACE TABLE UK_ENERGY_DB.RAW.LONDON_HOUSEHOLDS_RAW (
+    LCLID STRING,
+    STDORTOU STRING,
+    ACORN STRING,
+    ACORN_GROUPED STRING,
+    FILE_NAME STRING
+);
