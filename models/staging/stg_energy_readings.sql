@@ -1,7 +1,7 @@
 {{ config(materialized='view') }}
 
 WITH raw_data AS (
-    -- Reference the raw data we loaded into Snowflake earlier
+    -- Referencing the raw data we loaded into Snowflake earlier
     SELECT * FROM {{ source('energy_raw_data', 'LONDON_ENERGY_RAW') }}
 )
 
