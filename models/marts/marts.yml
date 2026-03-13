@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_households
+    description: "Core dimension table for all London energy meters and their socio-economic metadata."
+    columns:
+      - name: meter_id
+        description: "Primary key for the household dimension. Must be absolutely unique."
+        tests:
+          - unique
+          - not_null
+      - name: consumption_decile
+        tests:
+          - accepted_values:
+              values: [1,2,3,4,5,6,7,8,9,10]
+
+  - name: fct_daily_energy
+    description: "Core fact table logging daily energy consumption and anomalies at the meter-day grain."
+    columns:
+      - name: energy_fact_id
+        description: "Primary key (surrogate) for the event."
+        tests:
+          - unique
+          - not_null
+      - name: meter_id
+        description: "Foreign key linking to dim_households."
+        tests:
+          - not_null
+          #  Referential Integrity. Ensuring every fact has a matching dimension.
+          - relationships:
+              to: ref('dim_households')
+              field: meter_id
