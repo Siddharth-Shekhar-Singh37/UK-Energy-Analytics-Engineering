@@ -20,6 +20,9 @@ graph TD
     E -->|1:* Semantic Model| F[Power BI Executive Dashboard]
 ```
 ---
+### Automated Data Lineage (DAG)
+<img width="1816" height="371" alt="image" src="https://github.com/user-attachments/assets/a86c6d92-1967-4cda-a054-910e19ae3bb2" />
+---
 ## 🛠️ Engineering Best Practices Implemented
 
 ### 1. Secure & Scalable Ingestion (Python)
