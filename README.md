@@ -62,3 +62,4 @@ The final data product is a strict **Kimball Star Schema** ingested into Power B
 * **Data Ingestion:** Python (Pandas, Snowflake Connector)
 * **Version Control:** Git & GitHub (Branch/PR Workflow)
 * **Business Intelligence:** Power BI (DAX, VertiPaq)
+ 
