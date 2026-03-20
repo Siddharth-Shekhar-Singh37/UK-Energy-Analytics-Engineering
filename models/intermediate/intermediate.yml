@@ -5,11 +5,11 @@ models:
     description: "The primary enriched telemetry model for London energy consumption."
     columns:
       - name: reading_unique_id
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: consumption_decile
         description: "Statistical decile of the household based on avg usage (10 = highest)."
-        tests:
+        data_tests:
           - accepted_values:
               values: [1,2,3,4,5,6,7,8,9,10]

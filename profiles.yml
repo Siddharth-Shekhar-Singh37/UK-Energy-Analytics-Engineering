@@ -1,0 +1,15 @@
+# This is the connection configuration for your project
+uk_energy_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOW_ACCOUNT') }}"
+      user: "{{ env_var('SNOW_USER') }}"
+      password: "{{ env_var('SNOW_PASS') }}"
+      role: ACCOUNTADMIN
+      database: "{{ env_var('SNOW_DATABASE') }}"
+      warehouse: "{{ env_var('SNOW_WAREHOUSE') }}"
+      schema: "{{ env_var('SNOW_SCHEMA') }}"
+      threads: 4
+      client_session_keep_alive: False

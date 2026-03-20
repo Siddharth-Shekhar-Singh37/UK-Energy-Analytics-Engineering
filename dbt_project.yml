@@ -3,7 +3,7 @@ version: '1.0.0'
 config-version: 2
 
 # This matches the connection we set up in the wizard
-profile: 'default'
+profile: 'uk_energy_analytics'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
