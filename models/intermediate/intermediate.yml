@@ -1,8 +1,12 @@
 version: 2
 
 models:
+  - name: int_energy_usage_daily_spikes
+    description: "Calculates 7-day rolling averages and day-over-day variance to detect usage anomalies."
+  - name: int_household_behavior_ranking
+    description: "Aggregates household consumption to assign meters into statistical deciles (1-10)."
   - name: int_energy_acorn_enriched
-    description: "The primary enriched telemetry model for London energy consumption."
+    description: "The final logical join connecting energy telemetry, behavior metrics, and Acorn metadata."
     columns:
       - name: reading_unique_id
         data_tests:

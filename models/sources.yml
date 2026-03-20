@@ -4,7 +4,9 @@ sources:
   - name: energy_raw_data
     database: UK_ENERGY_DB
     schema: RAW
+    description: "The landing zone for raw UK Energy telemetry and socio-economic metadata."
     tables:
       - name: LONDON_ENERGY_RAW
+        description: "Partitioned raw daily energy consumption readings (3.5M+ rows) for London households."
       - name: LONDON_HOUSEHOLDS_RAW
-     
+        description: "Raw metadata for London households, containing Acorn group classifications and meter IDs."

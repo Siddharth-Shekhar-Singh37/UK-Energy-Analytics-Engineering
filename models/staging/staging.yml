@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: stg_energy_readings
+    description: "Cleaned and casted version of the raw energy telemetry. Primary key is reading_unique_id (MD5 hash)."
+  - name: stg_households
+    description: "Standardized household metadata. Links meter IDs to Acorn socio-economic categories."

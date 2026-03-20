@@ -5,7 +5,7 @@ models:
     description: "Core dimension table for all London energy meters and their socio-economic metadata."
     columns:
       - name: meter_id
-        description: "Primary key for the household dimension. Must be absolutely unique."
+        description: ""The primary Dimension table for households. Contains static attributes and behavioral segments.""
         tests:
           - unique
           - not_null
@@ -15,7 +15,7 @@ models:
               values: [1,2,3,4,5,6,7,8,9,10]
 
   - name: fct_daily_energy
-    description: "Core fact table logging daily energy consumption and anomalies at the meter-day grain."
+    description: "The central Fact table for the project. Contains daily telemetry, rolling trends, and anomaly flags."
     columns:
       - name: energy_fact_id
         description: "Primary key (surrogate) for the event."
