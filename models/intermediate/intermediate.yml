@@ -1,8 +1,14 @@
 version: 2
 
 models:
+  - name: int_energy_usage_daily_spikes
+    description: "Calculates a 7-day rolling average consumption and day-over-day variance to identify spikes in grid usage. Utilizes Window Functions (AVG OVER and LAG)."
+
+  - name: int_household_behavior_ranking
+    description: "Aggregates lifetime telemetry to assign households into statistical deciles (1-10) based on average daily consumption."
+
   - name: int_energy_acorn_enriched
-    description: "The primary enriched telemetry model for London energy consumption."
+    description: "The primary enriched telemetry model. Joins telemetry metrics with behavioral rankings and socio-economic (Acorn) metadata."
     columns:
       - name: reading_unique_id
         data_tests:
