@@ -7,8 +7,11 @@ models:
   - name: int_household_behavior_ranking
     description: "Aggregates lifetime telemetry to assign households into statistical deciles (1-10) based on average daily consumption."
 
+  - name: int_daily_energy_by_acorn_group
+    description: "Initial join between energy telemetry and Acorn metadata to provide an baseline view of consumption by socio-economic group."
+
   - name: int_energy_acorn_enriched
-    description: "The primary enriched telemetry model. Joins telemetry metrics with behavioral rankings and socio-economic (Acorn) metadata."
+    description: "The primary enriched telemetry model. Joins telemetry metrics with behavioral rankings and socio-economic (Acorn) metadata to create an analytics-ready dataset."
     columns:
       - name: reading_unique_id
         data_tests:
