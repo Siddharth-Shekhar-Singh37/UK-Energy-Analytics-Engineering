@@ -1,5 +1,13 @@
 # UK Energy Grid Performance & Analytics Pipeline
 
+[![Stack](https://img.shields.io/badge/Stack-Snowflake%20%7C%20dbt%20%7C%20PowerBI-blue?style=for-the-badge)]()
+[![Language](https://img.shields.io/badge/Language-Python%20%7C%20SQL-orange?style=for-the-badge)]()
+[![Data](https://img.shields.io/badge/Data-3.5M%20Rows%20%7C%20112%20Partitions-green?style=for-the-badge)]()
+
+---
+
+📌 Project Overview
+This project is an end-to-end...
 ## 📌 Project Overview
 This project is an end-to-end **Analytics Engineering pipeline** built to process, transform, and model high-frequency energy telemetry data. Processing over **3.5 million rows** across 112 partitions, the objective was to bridge the gap between raw operational data and executive-level business intelligence.
 
@@ -63,4 +71,4 @@ The final data product is a strict **Kimball Star Schema** ingested into Power B
 * **Version Control:** Git & GitHub (Branch/PR Workflow)
 * **Business Intelligence:** Power BI (DAX, VertiPaq)
  
-Last Updated: Fri Mar 20 01:26:14 UTC 2026
+
