@@ -6,8 +6,6 @@
 
 ---
 
-📌 Project Overview
-This project is an end-to-end...
 ## 📌 Project Overview
 This project is an end-to-end **Analytics Engineering pipeline** built to process, transform, and model high-frequency energy telemetry data. Processing over **3.5 million rows** across 112 partitions, the objective was to bridge the gap between raw operational data and executive-level business intelligence.
 
