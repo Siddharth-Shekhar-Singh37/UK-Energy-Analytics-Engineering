@@ -60,8 +60,10 @@ The final data product is a strict **Kimball Star Schema** ingested into Power B
 <img width="1314" height="737" alt="image" src="https://github.com/user-attachments/assets/06889f28-e844-4075-b6bf-cf50e71078ad" />
 
 
----
 ## 📁 Repository Structure
+
+```plaintext
+UK-Energy-Analytics-Engineering/
 │
 ├── models/
 │   ├── staging/          # Raw source cleaning & surrogate keys
@@ -73,7 +75,7 @@ The final data product is a strict **Kimball Star Schema** ingested into Power B
 ├── marts.yml             # Mart-level test definitions
 ├── dbt_project.yml       # dbt project configuration
 └── README.md
-
+```
 ---
 
 ## 💻 Technology Stack
