@@ -61,6 +61,20 @@ The final data product is a strict **Kimball Star Schema** ingested into Power B
 
 
 ---
+## 📁 Repository Structure
+│
+├── models/
+│   ├── staging/          # Raw source cleaning & surrogate keys
+│   ├── intermediate/     # Business logic & joins
+│   └── marts/            # Final fact & dimension tables
+├── ingestion/
+│   └── ingest.py         # Chunked Python ingestion script
+├── schema.yml            # Automated data quality tests
+├── marts.yml             # Mart-level test definitions
+├── dbt_project.yml       # dbt project configuration
+└── README.md
+
+---
 
 ## 💻 Technology Stack
 * **Cloud Data Warehouse:** Snowflake
